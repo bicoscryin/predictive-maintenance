@@ -10,7 +10,7 @@ import sqlite3
 from math import ceil
 from collections import Counter
 from scipy import stats
-from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, Lasso
+from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, Lasso, RidgeCV, LassoCV
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import OneHotEncoder, MinMaxScaler, StandardScaler
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingClassifier, RandomForestClassifier
@@ -22,14 +22,15 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor 
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 import tensorflow as tf
 from tensorflow import keras
-from xgboost import XGBClassifier
+from xgboost import XGBClassifier, XGBRegressor
 from lightgbm import LGBMClassifier
 from catboost import CatBoostClassifier
 import timeit
 import datetime
 import pickle
+import streamlit as st
