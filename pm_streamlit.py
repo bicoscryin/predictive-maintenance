@@ -58,8 +58,14 @@ with st.container():
     #     st.plotly_chart(fig)
     # plt_scatter(comp_engine03_df.loc[comp_engine03_df['engine'] == 16], comp_engine03_df.loc[comp_engine03_df['engine'] == 16, 'cycle'], 'sensor11', f"Engine 16", "Remaining Usefull Life", f"{sensor_names['sensor11']} ({'sensor11'})", invertx = True)
     # plt_scatter(comp_engine03_df.loc[comp_engine03_df['engine'] == 28], comp_engine03_df.loc[comp_engine03_df['engine'] == 28, 'cycle'], 'sensor11', f"Engine 28", "Remaining Usefull Life", f"{sensor_names['sensor11']} ({'sensor11'})", invertx = True)
-    engine_1 = st.selectbox("First Engine", range(1,101), 15) #16
-    engine_2 = st.selectbox("Second Engine", range(1,101), 27)
+with st.container():
+    st.header("Test Engine Comparison")
+    st.write("Each Engine was ran till failure. The below graphs compare sensor data between test engines.")
+    cols = st.columns(2)
+    with cols[0]:
+        engine_1 = st.selectbox("First Engine", range(1,101), 15) #16
+    with cols[1]:
+        engine_2 = st.selectbox("Second Engine", range(1,101), 27)
     col = st.selectbox("Select the Sensor", num_fet_name_list, 7)
     col = list(sensor_names.keys())[list(sensor_names.values()).index(col)]
     engine_series = comp_engine03_df.loc[comp_engine03_df['engine'] == engine_1, col]
@@ -78,12 +84,15 @@ with st.container():
 
 with st.container():
     # with tab2:
-    st.header("Model Data")
+    st.header("Predicting Engine Failure")
     st.write("Raw data used to predict Remaining Useful Life.")
     st.write("(The sliders are set to a cycle from the data by default)")
-    what_level = st.selectbox("Complex", ['Preset', 'Custom'])
+    cols = st.columns(2)
+    with cols[0]:
+        what_level = st.selectbox("Settings", ['Preset', 'Custom'])
     if what_level == "Preset":
-        example_engine = st.selectbox("Example Engine", range(1,101), 15)
+        with cols[1]:
+            example_engine = st.selectbox("Example Engine", range(1,101), 15)
         st.dataframe(X_test_df.iloc[[example_engine]], column_config=sensor_names)
         rul = model.predict(X_test_df.iloc[[example_engine]])
     if what_level == 'Custom':
