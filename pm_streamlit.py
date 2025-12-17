@@ -17,13 +17,15 @@ y_train_clipped_df = y_train_df.clip(upper=120)# 112 or 120 or 108
 # rfr.fit(X_train_df, y_train_clipped_df)
 rfr_model = model.named_steps["regressor"]
 num_fet_name_list = [f"{sensor_names[fet]}" for fet in numeric_features]
+user_defined_df = pd.DataFrame(columns=X_train_df.columns)
+user_defined_rul_list = []
 
 with st.container():
     st.title("Predictive Maintenance on a Jet Engine")
 
 
 
-# tab1, tab2, tab3 = st.tabs(["Data", "Prediction", "About Jet Engines"])
+    # tab1, tab2, tab3 = st.tabs(["Data", "Prediction", "About Jet Engines"])
     # with tab1:
     st.header("Model Data")
     st.write("How long the engine ran before failure.")
@@ -32,16 +34,16 @@ with st.container():
         comp03_list.append(comp_engine03_df.loc[comp_engine03_df['engine'] == idx,'cycle'].max())
     fig, ax = plt.subplots(figsize=(12,4))
     plt.hist(comp03_list, bins=20)
-    plt.title('Distribution of Max Cycles')
+    plt.title('Average MAx Engine Life')
     plt.ylabel('Frequency')
     plt.xlabel('Max Engine Cycles')
     st.plotly_chart(fig)
-
+    st.header("Highest Risk Factors")
     importances = pd.DataFrame(rfr_model.feature_importances_, columns=["Feature Importance"], index=num_fet_name_list).sort_values(by="Feature Importance")
     fig, ax = plt.subplots(figsize=(12,4))
     plt.bar(importances.index, importances["Feature Importance"])
     plt.xticks(rotation=90)
-    st.plotly_chart(fig)
+    st.pyplot(fig)
 
 
     fig, ax = plt.subplots(figsize=(12,4))
@@ -93,8 +95,8 @@ with st.container():
     if what_level == "Preset":
         with cols[1]:
             example_engine = st.selectbox("Example Engine", range(1,101), 15)
-        st.dataframe(X_test_df.iloc[[example_engine]], column_config=sensor_names)
-        rul = model.predict(X_test_df.iloc[[example_engine]])
+        # st.dataframe(X_test_df.iloc[[example_engine]], column_config=sensor_names)
+        rul = model.predict(X_test_df.loc[[example_engine]])
     if what_level == 'Custom':
         st.sidebar.header("Sensor Values")
         example_engine = 15
@@ -117,7 +119,19 @@ with st.container():
         sensor9, sensor11, sensor12, sensor13, sensor14,
         sensor15, sensor17, sensor20, sensor21]], columns=X_train_df.columns)
         rul = model.predict(slider_df)
-    st.write(f"Predicted Remaining Useful Life: {rul[0]} cycles")
+        # while st.sidebar.button("Save Sensor Readings"):
+        #     user_defined_df = pd.concat([user_defined_df, slider_df], axis=1)
+        #     user_defined_rul_list.append(rul)
+        for i in range(1,101):
+            user_defined_rul_list.append(math.ceil(list(model.predict(X_test_df.loc[[i]]))[0]))
+        # with cols[1]:
+        fig, ax = plt.subplots(figsize=(12,4))
+        plt.scatter(range(1,101), user_defined_rul_list)
+        st.plotly_chart(fig)
+    st.write(f"Predicted Remaining Useful Life: {math.ceil(rul[0])} cycles")
+    """
+    You need to remain conduct Mainanance
+    """
 
 with st.container():
     # with tab3:
