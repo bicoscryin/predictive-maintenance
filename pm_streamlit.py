@@ -19,6 +19,7 @@ rfr_model = model.named_steps["regressor"]
 num_fet_name_list = [f"{sensor_names[fet]}" for fet in numeric_features]
 user_defined_df = pd.DataFrame(columns=X_train_df.columns)
 user_defined_rul_list = []
+pred_rul_df = pd.DataFrame(columns=['engine', 'rul', 'label'])
 
 with st.container():
     st.title("Predictive Maintenance on a Jet Engine")
@@ -39,7 +40,7 @@ with st.container():
     plt.xlabel('Max Engine Cycles')
     st.plotly_chart(fig)
     st.header("Highest Risk Factors")
-    importances = pd.DataFrame(rfr_model.feature_importances_, columns=["Feature Importance"], index=num_fet_name_list).sort_values(by="Feature Importance")
+    importances = pd.DataFrame(rfr_model.feature_importances_, columns=["Feature Importance"], index=num_fet_name_list).sort_values(by="Feature Importance").tail()
     fig, ax = plt.subplots(figsize=(12,4))
     plt.bar(importances.index, importances["Feature Importance"])
     plt.xticks(rotation=90)
@@ -85,6 +86,27 @@ with st.container():
     st.plotly_chart(fig)
 
 with st.container():
+    st.header("Categorizing Potential Failures")
+    for i in range(1,101):
+        pred_loop = math.ceil(list(model.predict(X_test_df.loc[[i]]))[0])
+        if pred_loop > 80:
+            pred_rul_df.loc[len(pred_rul_df), 'engine'] = i
+            pred_rul_df.loc[len(pred_rul_df), 'rul'] = pred_loop
+            pred_rul_df.loc[len(pred_rul_df), 'label'] = 'Good'
+        elif pred_loop > 40:
+            pred_rul_df.loc[len(pred_rul_df), 'engine'] = i
+            pred_rul_df.loc[len(pred_rul_df), 'rul'] = pred_loop
+            pred_rul_df.loc[len(pred_rul_df), 'label'] = 'Warning'
+        else:
+            pred_rul_df.loc[len(pred_rul_df), 'engine'] = i
+            pred_rul_df.loc[len(pred_rul_df), 'rul'] = pred_loop
+            pred_rul_df.loc[len(pred_rul_df), 'label'] = 'Danger'
+    # with cols[1]:
+    fig, ax = plt.subplots(figsize=(12,4))
+    fig = px.scatter(pred_rul_df, y='rul', x=pred_rul_df.index, color='label')
+    st.plotly_chart(fig)
+
+with st.container():
     # with tab2:
     st.header("Predicting Engine Failure")
     st.write("Raw data used to predict Remaining Useful Life.")
@@ -119,19 +141,7 @@ with st.container():
         sensor9, sensor11, sensor12, sensor13, sensor14,
         sensor15, sensor17, sensor20, sensor21]], columns=X_train_df.columns)
         rul = model.predict(slider_df)
-        # while st.sidebar.button("Save Sensor Readings"):
-        #     user_defined_df = pd.concat([user_defined_df, slider_df], axis=1)
-        #     user_defined_rul_list.append(rul)
-        for i in range(1,101):
-            user_defined_rul_list.append(math.ceil(list(model.predict(X_test_df.loc[[i]]))[0]))
-        # with cols[1]:
-        fig, ax = plt.subplots(figsize=(12,4))
-        plt.scatter(range(1,101), user_defined_rul_list)
-        st.plotly_chart(fig)
     st.write(f"Predicted Remaining Useful Life: {math.ceil(rul[0])} cycles")
-    """
-    You need to remain conduct Mainanance
-    """
 
 with st.container():
     # with tab3:
