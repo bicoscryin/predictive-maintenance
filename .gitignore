@@ -215,4 +215,4 @@ data/CMAPSSDATA/
 data/metropt_3
 
 # Model Storage
-.pkl
+base_model.pkl
