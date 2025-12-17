@@ -213,3 +213,6 @@ variables.py
 #Temporary Data
 data/CMAPSSDATA/
 data/metropt_3
+
+# Model Storage
+.pkl
