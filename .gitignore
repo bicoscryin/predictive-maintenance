@@ -207,7 +207,7 @@ marimo/_lsp/
 __marimo__/
 
 # Variable files
-variables.py
+# variables.py
 
 
 #Temporary Data
