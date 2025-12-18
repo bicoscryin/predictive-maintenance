@@ -149,19 +149,19 @@ with tab5:
         for i in range(1,101):
             pred_loop = math.ceil(list(model.predict(X_test_df.loc[[i]]))[0])
             if pred_loop > 80:
-                pred_rul_df.loc[i, 'engine'] = i
+                pred_rul_df.loc[i, 'engine'] = int(i)
                 pred_rul_df.loc[i, 'rul'] = pred_loop
                 pred_rul_df.loc[i, 'label'] = 'Good'
             elif pred_loop > 40:
-                pred_rul_df.loc[i, 'engine'] = i
+                pred_rul_df.loc[i, 'engine'] = int(i)
                 pred_rul_df.loc[i, 'rul'] = pred_loop
                 pred_rul_df.loc[i, 'label'] = 'Warning'
             else:
-                pred_rul_df.loc[i, 'engine'] = i
+                pred_rul_df.loc[i, 'engine'] = int(i)
                 pred_rul_df.loc[i, 'rul'] = pred_loop
                 pred_rul_df.loc[i, 'label'] = 'Danger'
         # with cols[1]:
-        fig = px.scatter(pred_rul_df, y='rul', x='engine', color='label', hover_data=['engine'], color_discrete_sequence=[ 'goldenrod', "blue", "red"])
+        fig = px.scatter(pred_rul_df, y='rul', x='engine', color='label', hover_data=['engine'], color_discrete_sequence=[ 'orange', "blue", "red"])
         fig.add_shape(type="line",
                 x0=-5, 
                 y0=40, 
