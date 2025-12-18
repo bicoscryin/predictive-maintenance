@@ -1,8 +1,9 @@
 import pandas as pd
 import numpy as np
+import os
 from functions import *
 
-data_directory = "C:/DDI_course/predictive-maintenance/data"
+data_directory = "\\".join(f"{os.getcwd()}".split("\\")[0:len(f"{os.getcwd()}".split("\\"))-1] + ["data"])
 
 # Engine column names
 index_names = {
