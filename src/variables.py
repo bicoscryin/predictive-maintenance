@@ -44,22 +44,13 @@ sensor_names = {
 engine_columns = list(index_names.keys()) + list(setting_names.keys()) + list(sensor_names.keys())
 
 # Load in each training engine data
-comp_engine01_df = pd.read_csv(f"{data_directory}/CMAPSSData/train_FD001.txt", sep="\s+", header=None, names=engine_columns).drop(columns=['setting1', 'setting2', 'setting3'])
-comp_engine02_df = pd.read_csv(f"{data_directory}/CMAPSSData/train_FD002.txt", sep="\s+", header=None, names=engine_columns).drop(columns=['setting1', 'setting2', 'setting3'])
-comp_engine03_df = pd.read_csv(f"{data_directory}/CMAPSSData/train_FD003.txt", sep="\s+", header=None, names=engine_columns).drop(columns=['setting1', 'setting2', 'setting3'])
-comp_engine04_df = pd.read_csv(f"{data_directory}/CMAPSSData/train_FD004.txt", sep="\s+", header=None, names=engine_columns).drop(columns=['setting1', 'setting2', 'setting3'])
+comp_engine03_df = pd.read_csv(f"{data_directory}/train_FD003.txt", sep="\s+", header=None, names=engine_columns).drop(columns=['setting1', 'setting2', 'setting3'])
 
 # Load in each testing engine data
-test_engine01_df = pd.read_csv(f"{data_directory}/CMAPSSData/test_FD001.txt", sep="\s+", header=None, names=engine_columns).drop(columns=['setting1', 'setting2', 'setting3'])
-test_engine02_df = pd.read_csv(f"{data_directory}/CMAPSSData/test_FD002.txt", sep="\s+", header=None, names=engine_columns).drop(columns=['setting1', 'setting2', 'setting3'])
-test_engine03_df = pd.read_csv(f"{data_directory}/CMAPSSData/test_FD003.txt", sep="\s+", header=None, names=engine_columns).drop(columns=['setting1', 'setting2', 'setting3'])
-test_engine04_df = pd.read_csv(f"{data_directory}/CMAPSSData/test_FD004.txt", sep="\s+", header=None, names=engine_columns).drop(columns=['setting1', 'setting2', 'setting3'])
+test_engine03_df = pd.read_csv(f"{data_directory}/test_FD003.txt", sep="\s+", header=None, names=engine_columns).drop(columns=['setting1', 'setting2', 'setting3'])
 
 # Load in each RUL engine data
-rul_engine01_df = pd.read_csv(f"{data_directory}/CMAPSSData/RUL_FD001.txt", sep="\s+", header=None, names=['rul'])
-rul_engine02_df = pd.read_csv(f"{data_directory}/CMAPSSData/RUL_FD002.txt", sep="\s+", header=None, names=['rul'])
-rul_engine03_df = pd.read_csv(f"{data_directory}/CMAPSSData/RUL_FD003.txt", sep="\s+", header=None, names=['rul'])
-rul_engine04_df = pd.read_csv(f"{data_directory}/CMAPSSData/RUL_FD004.txt", sep="\s+", header=None, names=['rul'])
+rul_engine03_df = pd.read_csv(f"{data_directory}/RUL_FD003.txt", sep="\s+", header=None, names=['rul'])
 
 # Define Feature Sets
 numeric_features = comp_engine03_df.drop(columns=not_unique_col(comp_engine03_df)+["engine", 'cycle', 'sensor10']).columns.tolist()
