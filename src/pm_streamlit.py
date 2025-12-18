@@ -21,6 +21,9 @@ user_defined_df = pd.DataFrame(columns=X_train_df.columns)
 user_defined_rul_list = []
 pred_rul_df = pd.DataFrame(columns=['engine', 'rul', 'label'])
 
+# Theme
+
+
 st.title("Predictive Maintenance on a Jet Engine")
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["Data", "Indicators of Engine Health", "Test Engine Comparison", "Predicting Engine Failure", "Categorizing Potential Failures"])
@@ -106,7 +109,7 @@ with tab4:
             rul = model.predict(X_test_df.loc[[example_engine]])
         if what_level == 'Manual':
             st.sidebar.header("Sensor Values")
-            example_engine = 15
+            example_engine = 16
             sensor2 = st.sidebar.slider(f"{sensor_names['sensor2']}", 640.0, 650.0, X_test_df.loc[example_engine,"sensor2"])
             sensor3 = st.sidebar.slider(f"{sensor_names['sensor3']}", 1550.0, 1620.0, X_test_df.loc[example_engine,"sensor3"])
             sensor4 = st.sidebar.slider(f"{sensor_names['sensor4']}", 1370.0, 1450.0, X_test_df.loc[example_engine,"sensor4"])
