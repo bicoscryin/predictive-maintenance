@@ -11,7 +11,7 @@ X_train_df = comp_engine03_df.drop(columns=not_unique_col(comp_engine03_df)+["en
 y_train_df = comp_engine03_df['rul']
 
 # Clipping train data to focus more on the lower end of the data
-y_train_clipped_df = y_train_df.clip(upper=120)# 112 or 120
+y_train_clipped_df = y_train_df.clip(upper=120)# 112 or 119
 rfr.fit(X_train_df, y_train_clipped_df)
 
 # Scoring Model
