@@ -60,7 +60,7 @@ fig, ax = plt.subplots(figsize=(2,5))
 # Overview of how jet engines work
 with st.container():
     st.header("About Jet Engines")
-    st.write("Jet engined take in air, compress it, mix it with fuel, ignite it, and use the resulting combustion for thrust.  " \
+    st.write("Jet engines take in air, compress it, mix it with fuel, ignite it, and use the resulting combustion for thrust.  " \
     "The three main sections of the engine are the compressors (LPC and HPC), the turbines (HPT and LPT), and the combuster." \
     " Low pressure (LPC and LPT) areas are connected by the N2 shaft. High pressure (HPC and HPT) areas are connected by the N1 shaft.")
     st.image("../img/turbofan_model.png")
