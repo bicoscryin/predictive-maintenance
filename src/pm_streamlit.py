@@ -100,35 +100,36 @@ with tab4:
                     "(The sliders are set to a cycle from the data by default)  \n" \
         "You can change these values by selecting manual.")
         cols = st.columns(2)
+        # with cols[0]:
+        #     what_level = st.selectbox("Input method", ['Preset', 'Manual'])
+        # if what_level == "Preset":
+        #     with cols[0]:
+        #         example_engine = st.selectbox("Example Engine", range(1,101), 37)
+        #     # st.dataframe(X_test_df.iloc[[example_engine]], column_config=sensor_names)
+        #     rul = model.predict(X_test_df.loc[[example_engine]])
+        # if what_level == 'Manual':
+        st.sidebar.header("Sensor Values")
         with cols[0]:
-            what_level = st.selectbox("Input method", ['Preset', 'Manual'])
-        if what_level == "Preset":
-            with cols[1]:
-                example_engine = st.selectbox("Example Engine", range(1,101), 15)
-            # st.dataframe(X_test_df.iloc[[example_engine]], column_config=sensor_names)
-            rul = model.predict(X_test_df.loc[[example_engine]])
-        if what_level == 'Manual':
-            st.sidebar.header("Sensor Values")
-            example_engine = 16
-            sensor2 = st.sidebar.slider(f"{sensor_names['sensor2']}", 640.0, 650.0, X_test_df.loc[example_engine,"sensor2"])
-            sensor3 = st.sidebar.slider(f"{sensor_names['sensor3']}", 1550.0, 1620.0, X_test_df.loc[example_engine,"sensor3"])
-            sensor4 = st.sidebar.slider(f"{sensor_names['sensor4']}", 1370.0, 1450.0, X_test_df.loc[example_engine,"sensor4"])
-            sensor6 = st.sidebar.slider(f"{sensor_names['sensor6']}", 21.3, 21.8, X_test_df.loc[example_engine,"sensor6"])
-            sensor7 = st.sidebar.slider(f"{sensor_names['sensor7']}", 540.0, 580.0, X_test_df.loc[example_engine,"sensor7"])
-            sensor8 = st.sidebar.slider(f"{sensor_names['sensor8']}", 2386.0, 2389.0, X_test_df.loc[example_engine,"sensor8"])
-            sensor9 = st.sidebar.slider(f"{sensor_names['sensor9']}", 9000.0, 9300.0, X_test_df.loc[example_engine,"sensor9"])
-            sensor11 = st.sidebar.slider(f"{sensor_names['sensor11']}", 46.0, 48.5, X_test_df.loc[example_engine,"sensor11"])
-            sensor12 = st.sidebar.slider(f"{sensor_names['sensor12']}", 517.0, 538.0, X_test_df.loc[example_engine,"sensor12"])
-            sensor13 = st.sidebar.slider(f"{sensor_names['sensor13']}", 2386.0, 2389.0, X_test_df.loc[example_engine,"sensor13"])
-            sensor14 = st.sidebar.slider(f"{sensor_names['sensor14']}", 8050.0, 8300.0, X_test_df.loc[example_engine,"sensor14"])
-            sensor15 = st.sidebar.slider(f"{sensor_names['sensor15']}", 8.1, 8.6, X_test_df.loc[example_engine,"sensor15"])
-            sensor17 = st.sidebar.slider(f"{sensor_names['sensor17']}", 387, 400, X_test_df.loc[example_engine,"sensor17"])
-            sensor20 = st.sidebar.slider(f"{sensor_names['sensor20']}", 38.0, 40.0, X_test_df.loc[example_engine,"sensor20"])
-            sensor21 = st.sidebar.slider(f"{sensor_names['sensor21']}", 22.5, 24.0, X_test_df.loc[example_engine,"sensor21"])
-            slider_df = pd.DataFrame([[sensor2, sensor3, sensor4, sensor6, sensor7, sensor8,
-            sensor9, sensor11, sensor12, sensor13, sensor14,
-            sensor15, sensor17, sensor20, sensor21]], columns=X_train_df.columns)
-            rul = model.predict(slider_df)
+            example_engine = st.selectbox("Example Engine", range(1,101), 37)
+        sensor2 = st.sidebar.slider(f"{sensor_names['sensor2']}", 640.0, 650.0, X_test_df.loc[example_engine,"sensor2"])
+        sensor3 = st.sidebar.slider(f"{sensor_names['sensor3']}", 1550.0, 1620.0, X_test_df.loc[example_engine,"sensor3"])
+        sensor4 = st.sidebar.slider(f"{sensor_names['sensor4']}", 1370.0, 1450.0, X_test_df.loc[example_engine,"sensor4"])
+        sensor6 = st.sidebar.slider(f"{sensor_names['sensor6']}", 21.3, 21.8, X_test_df.loc[example_engine,"sensor6"])
+        sensor7 = st.sidebar.slider(f"{sensor_names['sensor7']}", 540.0, 580.0, X_test_df.loc[example_engine,"sensor7"])
+        sensor8 = st.sidebar.slider(f"{sensor_names['sensor8']}", 2386.0, 2389.0, X_test_df.loc[example_engine,"sensor8"])
+        sensor9 = st.sidebar.slider(f"{sensor_names['sensor9']}", 9000.0, 9300.0, X_test_df.loc[example_engine,"sensor9"])
+        sensor11 = st.sidebar.slider(f"{sensor_names['sensor11']}", 46.0, 48.5, X_test_df.loc[example_engine,"sensor11"])
+        sensor12 = st.sidebar.slider(f"{sensor_names['sensor12']}", 517.0, 538.0, X_test_df.loc[example_engine,"sensor12"])
+        sensor13 = st.sidebar.slider(f"{sensor_names['sensor13']}", 2386.0, 2389.0, X_test_df.loc[example_engine,"sensor13"])
+        sensor14 = st.sidebar.slider(f"{sensor_names['sensor14']}", 8050.0, 8300.0, X_test_df.loc[example_engine,"sensor14"])
+        sensor15 = st.sidebar.slider(f"{sensor_names['sensor15']}", 8.1, 8.6, X_test_df.loc[example_engine,"sensor15"])
+        sensor17 = st.sidebar.slider(f"{sensor_names['sensor17']}", 387, 400, X_test_df.loc[example_engine,"sensor17"])
+        sensor20 = st.sidebar.slider(f"{sensor_names['sensor20']}", 38.0, 40.0, X_test_df.loc[example_engine,"sensor20"])
+        sensor21 = st.sidebar.slider(f"{sensor_names['sensor21']}", 22.5, 24.0, X_test_df.loc[example_engine,"sensor21"])
+        slider_df = pd.DataFrame([[sensor2, sensor3, sensor4, sensor6, sensor7, sensor8,
+        sensor9, sensor11, sensor12, sensor13, sensor14,
+        sensor15, sensor17, sensor20, sensor21]], columns=X_train_df.columns)
+        rul = model.predict(slider_df)
         with cols[0]:
             st.metric(
                 "**Remaining Useful Life** (cycles)",
